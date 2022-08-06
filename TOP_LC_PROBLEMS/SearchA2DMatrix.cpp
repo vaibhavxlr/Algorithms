@@ -5,6 +5,7 @@
  * @date 2022-08-06
  */
 
+
 //Linear search + Binsary Search solution
 class Solution {
 public:
