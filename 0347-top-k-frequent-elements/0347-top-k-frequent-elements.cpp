@@ -1,9 +1,14 @@
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        map<int, int> elemMap;
+        if(k == nums.size()) {
+            return nums;
+        }
+
+        unordered_map<int, int> elemMap;
         priority_queue<pair<int, int>> maxHeap;
         vector<int> ans;
+
 
         for(auto& a : nums) {
             elemMap[a]++;
