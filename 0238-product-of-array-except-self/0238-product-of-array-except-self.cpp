@@ -1,30 +1,17 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int fullProduct = INT_MIN;
-        vector<int> ans;
-        bool hasZero = false;
+        int prefix = 1, postfix = 1;
+        vector<int> ans(nums.size(), 1);
 
-        for (auto& num : nums) {
-            if (num == 0 && !hasZero) {
-                hasZero = true;
-            } else {
-                if (fullProduct == INT_MIN) {
-                    fullProduct = 1;
-                }
-                fullProduct *= num;
-            }
+        for(int i = 0; i < nums.size(); i++) {
+            ans[i] = prefix;
+            prefix *= nums[i];
         }
 
-        for (auto& num : nums) {
-            if (num == 0) {
-                ans.push_back(fullProduct);
-            } else if (hasZero) {
-                ans.push_back(0);
-            } else {
-                int val = fullProduct / num;
-                ans.push_back(val);
-            }
+        for(int i = nums.size() - 1; i >= 0; i--) {
+            ans[i] *= postfix;
+            postfix *= nums[i];
         }
 
         return ans;
