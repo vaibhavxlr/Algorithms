@@ -14,8 +14,7 @@ public:
             it.push_back(nums[start]);
             temp.push_back(it);
         }
-        solution.clear();
-        solution.assign(temp.begin(), temp.end());
+        solution = temp;
     }
 
     vector<vector<int>> subsets(vector<int>& nums) {
