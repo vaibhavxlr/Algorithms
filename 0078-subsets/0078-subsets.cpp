@@ -1,25 +1,23 @@
 class Solution {
-public:
-
-    void helper(int start, int end, vector<int>& nums, vector<vector<int>>& solution) {
-        if(start > end) {
-            solution.push_back({});
+private:
+    void helper(int start, int end, vector<int>& nums, vector<int> temp,
+                vector<vector<int>>& solution) {
+        if (start == end) {
+            solution.push_back(temp);
             return;
         }
 
-        helper(start + 1, end, nums, solution);
-        vector<vector<int>> temp;
-        for(auto it : solution) {
-            temp.push_back(it);
-            it.push_back(nums[start]);
-            temp.push_back(it);
-        }
-        solution = temp;
+        helper(start + 1, end, nums, temp, solution);
+        temp.push_back(nums[start]);
+        helper(start + 1, end, nums, temp, solution);
     }
+
+public:
 
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> solution;
-        helper(0, nums.size() - 1, nums, solution);
+        vector<int> temp;
+        helper(0, nums.size(), nums, temp, solution);
         return solution;
     }
 };
