@@ -50,33 +50,25 @@ double eps = 1e-12;
 #define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
+
+int arr[11][11];
+
+void solve(){
  
-
-ll solve(ll N, ll W, ll V, ll weightsAndValues[][2]){
-
-    if(N == 0) {
-        return V;
-    }
-
-    ll val = 0;
-    if(W - weightsAndValues[N][0] >= 0) {
-        val = solve(N - 1, W - weightsAndValues[N][0], V + weightsAndValues[N][1], weightsAndValues);
-    }
-
-    return max(max(V, solve(N - 1, W, V, weightsAndValues)), val);
 }
 
 int main()
 {
- fast_cin();
- ll N, W;
- cin >> N >> W;
- ll weightsAndValues[100][2];
+    fast_cin();
+    ll N, M;
+    cin >> N >> M;
 
- for(int it=1;it<=N;it++) {
-    cin >> weightsAndValues[it][0] >> weightsAndValues[it][1];
- }
+    for(int i = 0; i < N; i++) {
+        for(int j = 0; j < M; j++) {
+            cin >> arr[i][j];
+        }
+    }
 
- cout << solve(N, W, 0, weightsAndValues);
- return 0;
+    solve(arr);
+    return 0;
 }
