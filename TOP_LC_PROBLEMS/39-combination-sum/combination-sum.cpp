@@ -1,7 +1,17 @@
 class Solution {
 private:
+    template<typename T>
+    struct VectorHash {
+        size_t operator()(const vector<T>& vec) const {
+            size_t hasher = 0;
+            for(auto& val : vec) {
+                hasher ^= hash<T>()(val) + 0x9e3779b9 + (hasher << 6) + (hasher >> 2);
+            }
+            return hasher;
+        }
+    };
     vector<vector<int>> ans;
-    set<vector<int>> s;
+    unordered_set<vector<int>, VectorHash<int>> s;
     void solve(vector<int>& candidates, int target, vector<int> curr) {
         if (target <= 0) {
             sort(curr.begin(), curr.end());
