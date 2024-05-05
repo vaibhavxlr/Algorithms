@@ -1,5 +1,7 @@
 class Solution {
-   
+    // Notice that the constraints are 2-40, with all distinct elements and
+    // 1 is not present, because then repeating 1 can create any positive 
+    // integer value
     vector<vector<string>> ans;
 
     bool isPalindrome(string str) {

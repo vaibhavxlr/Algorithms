@@ -50,35 +50,36 @@ double eps = 1e-12;
 #define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
+ 
+vector<string> ans;
 
-int arr[11][11];
-
-int solve(int rs, int re, int cs, int ce) {
-    if(rs > re) {
-        return -1e7;
+void solve(int start, int end, vector<int>& freq, string curr) {
+    if(start == end) {
+        ans.push_back(curr);
+        return;
     }
-    if(cs > ce) {
-        return -1e7;   
-    }
-    int a = solve(rs + 1, re, cs, ce);
-    int b = solve(rs, re, cs + 1, ce);
-    int c = max(a, b);
-    if(c == -1e7) {
-        return arr[rs][cs];
-    } else {
-        return c + arr[rs][cs];
+    for(int i = 0; i < 26; i++) {
+        if(freq[i] > 0) {
+            freq[i]--;
+            solve(start + 1, end, freq, curr + char(i + 'a'));
+            freq[i]++;
+        }
     }
 }
 
 int main() {
-    fast_cin();
-    ll N, M;
-    cin >> N >> M;
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < M; j++) {
-            cin >> arr[i][j];
-        }
+    string s;
+    cin >> s;
+    vector<int> freq(26);
+
+    for(char c : s) {
+        freq[c - 'a']++;
     }
-    cout << solve(0, N - 1, 0, M - 1);
+    solve(0, s.size(), freq, "");
+
+    cout << ans.size() << endl;
+    for(string str : ans) {
+        cout << str << endl;
+    }
     return 0;
 }

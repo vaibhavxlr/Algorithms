@@ -50,35 +50,32 @@ double eps = 1e-12;
 #define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
+ 
+ll arr[21];
+bool solve(int l, int r, ll currSum, ll X) {
+    if(l == r) {
+        if(currSum == X) {
+            return true;
+        } 
+        return false;
+    }
 
-int arr[11][11];
-
-int solve(int rs, int re, int cs, int ce) {
-    if(rs > re) {
-        return -1e7;
-    }
-    if(cs > ce) {
-        return -1e7;   
-    }
-    int a = solve(rs + 1, re, cs, ce);
-    int b = solve(rs, re, cs + 1, ce);
-    int c = max(a, b);
-    if(c == -1e7) {
-        return arr[rs][cs];
-    } else {
-        return c + arr[rs][cs];
-    }
+    return solve(l + 1, r, currSum + arr[l], X) || solve(l + 1, r, currSum - arr[l], X);
 }
 
 int main() {
     fast_cin();
-    ll N, M;
-    cin >> N >> M;
+    ll N, X;
+    cin >> N >> X;
+    
     for(int i = 0; i < N; i++) {
-        for(int j = 0; j < M; j++) {
-            cin >> arr[i][j];
-        }
+        cin >> arr[i];
     }
-    cout << solve(0, N - 1, 0, M - 1);
+
+    if(solve(1, N, arr[0], X)) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
     return 0;
 }
